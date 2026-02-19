@@ -24,6 +24,15 @@ const pool = new Pool({
     }
 });
 
+// Test Connection
+pool.connect((err, client, release) => {
+    if (err) {
+        return console.error('Database Connection Error:', err.message);
+    }
+    console.log('Successfully connected to the database');
+    release();
+});
+
 // Initialize Database Table
 const initDb = async () => {
     try {
@@ -96,5 +105,11 @@ app.post('/api/login', async (req, res) => {
 });
 
 // Export for Vercel serverless (no app.listen on Vercel!)
-// For local dev: run with `node -e "require('./server').listen(5000)"`
+// For local dev: running directly starts the server
+if (require.main === module) {
+    app.listen(port, () => {
+        console.log(`Server is running on http://localhost:${port}`);
+    });
+}
+
 module.exports = app;
