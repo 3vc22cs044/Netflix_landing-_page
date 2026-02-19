@@ -1,0 +1,475 @@
+:root {
+    --netflix-red: #e50914;
+    --netflix-black: #000000;
+    --netflix-dark-gray: #333333;
+    --netflix-light-gray: #a6a6a6;
+    --netflix-white: #ffffff;
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--netflix-black);
+    color: var(--netflix-white);
+    line-height: 1.5;
+    overflow-x: hidden;
+}
+
+/* Header & Hero */
+.header {
+    height: 100vh;
+    background: url('https://assets.nflxext.com/ffe/siteui/vlv3/f841d4c7-10e1-40af-bca1-07c3f8bf141a/14913217-e3a4-4395-9279-0522199f7d4c/IN-en-20220502-popsignuptwoweeks-perspective_alpha_website_large.jpg') no-repeat center center/cover;
+    position: relative;
+    border-bottom: 8px solid #222;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 0.8) 100%);
+    z-index: 1;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 5%;
+    position: relative;
+    z-index: 10;
+}
+
+.logo {
+    width: 150px;
+}
+
+.nav-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.language-select {
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 0.5rem 1rem;
+    border: 1px solid white;
+    border-radius: 4px;
+}
+
+.btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.btn-red {
+    background-color: var(--netflix-red);
+    color: white;
+}
+
+.btn-red:hover {
+    background-color: #f40612;
+}
+
+.btn-lg {
+    padding: 1rem 2rem;
+    font-size: 1.5rem;
+    border-radius: 2px;
+}
+
+.hero {
+    position: relative;
+    z-index: 10;
+    height: calc(100vh - 100px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.hero h1 {
+    font-size: 4rem;
+    font-weight: 900;
+    margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+}
+
+.hero-cta {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.cta-form {
+    display: flex;
+    width: 100%;
+    max-width: 700px;
+}
+
+.cta-form input {
+    flex: 1;
+    padding: 1.5rem 1rem;
+    font-size: 1rem;
+    border: none;
+    outline: none;
+}
+
+.cta-form button {
+    border-radius: 0;
+}
+
+/* Feature Sections */
+.feature {
+    display: flex;
+    padding: 70px 10%;
+    align-items: center;
+    border-bottom: 8px solid #222;
+}
+
+.feature.alternate {
+    flex-direction: row-reverse;
+}
+
+.feature-content {
+    flex: 1;
+    padding: 0 2rem;
+}
+
+.feature-content h2 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.feature-content p {
+    font-size: 1.5rem;
+}
+
+.feature-media {
+    flex: 1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.feature-media img {
+    width: 100%;
+    max-width: 500px;
+    z-index: 2;
+}
+
+.video-container,
+.video-container-small {
+    position: relative;
+}
+
+.video-container video {
+    position: absolute;
+    top: 20%;
+    left: 13%;
+    width: 73%;
+    z-index: 1;
+}
+
+.video-container-small video {
+    position: absolute;
+    top: 10%;
+    left: 18%;
+    width: 63%;
+    z-index: 1;
+}
+
+/* Mobile Download Animation */
+.img-container {
+    position: relative;
+}
+
+.download-animation {
+    position: absolute;
+    bottom: 8%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    background: black;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    z-index: 3;
+}
+
+.download-animation .poster {
+    width: 50px;
+}
+
+.download-text .title {
+    font-weight: 700;
+}
+
+.download-text .status {
+    color: #0071eb;
+    font-size: 0.9rem;
+}
+
+.download-icon {
+    margin-left: auto;
+    width: 3rem;
+    height: 3rem;
+    background: url('https://assets.nflxext.com/ffe/siteui/acquisition/ourStory/fuji/desktop/download-icon.gif') no-repeat center/contain;
+}
+
+/* FAQ Section */
+.faq {
+    padding: 70px 15%;
+    text-align: center;
+    border-bottom: 8px solid #222;
+}
+
+.faq h2 {
+    font-size: 3rem;
+    margin-bottom: 3rem;
+}
+
+.faq-list {
+    list-style: none;
+    margin-bottom: 3rem;
+}
+
+.faq-item {
+    background-color: #303030;
+    margin-bottom: 8px;
+    text-align: left;
+}
+
+.faq-question {
+    width: 100%;
+    padding: 1.5rem 2rem;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    background-color: #303030;
+    transition: max-height 0.2s ease-out;
+    padding: 0 2rem;
+}
+
+.faq-answer p {
+    font-size: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
+.faq-answer.show {
+    max-height: 500px;
+}
+
+.faq-cta {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+/* Footer */
+.footer {
+    padding: 70px 15% 30px;
+    color: var(--netflix-light-gray);
+}
+
+.footer a {
+    color: var(--netflix-light-gray);
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+.footer-top {
+    margin-bottom: 2rem;
+}
+
+.footer-links {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.footer-links ul {
+    list-style: none;
+}
+
+.footer-links li {
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.footer-lang {
+    margin-bottom: 1.5rem;
+}
+
+.footer-bottom {
+    font-size: 0.9rem;
+}
+
+/* Responsive */
+@media (max-width: 950px) {
+    .hero h1 {
+        font-size: 3rem;
+    }
+
+    .feature {
+        flex-direction: column !important;
+        text-align: center;
+    }
+
+    .feature-content {
+        padding: 0 0 2rem 0;
+    }
+
+    .footer-links {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 550px) {
+    .cta-form {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .btn-lg {
+        padding: 0.8rem 1.5rem;
+        font-size: 1.1rem;
+    }
+
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+
+    .feature-content h2 {
+        font-size: 1.8rem;
+    }
+
+    .feature-content p {
+        font-size: 1.1rem;
+    }
+}
+
+/* Movie Rows Styles */
+.movie-rows {
+    padding: 20px 4%;
+    background-color: #111;
+    color: white;
+}
+
+.row {
+    margin-bottom: 40px;
+}
+
+.row h2 {
+    margin-left: 10px;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.row-posters {
+    display: flex;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    padding: 20px 10px;
+    gap: 15px;
+}
+
+.row-posters::-webkit-scrollbar {
+    height: 8px;
+}
+
+.row-posters::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 4px;
+}
+
+.movie-card {
+    flex-shrink: 0;
+    width: 200px;
+    transition: transform 450ms;
+    cursor: pointer;
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #141414;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.movie-card img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    display: block;
+}
+
+.movie-card:hover {
+    transform: scale(1.08);
+    z-index: 10;
+}
+
+.movie-info {
+    padding: 10px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 300ms;
+}
+
+.movie-card:hover .movie-info {
+    opacity: 1;
+}
+
+.movie-info h3 {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: white;
+}
+
+.movie-info .rating {
+    color: #46d369;
+    font-weight: bold;
+    font-size: 0.8rem;
+}

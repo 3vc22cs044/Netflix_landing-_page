@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflix - Login / Register</title>
+    <link rel="stylesheet" href="auth.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="background">
+        <div class="circle"></div>
+        <div class="circle"></div>
+    </div>
+
+    <div class="container" id="auth-container">
+        <!-- Login Form -->
+        <div class="form-container" id="login-form">
+            <h2>Sign In</h2>
+            <form id="login-form-element">
+                <div class="input-group">
+                    <input type="email" id="login-email" required placeholder=" ">
+                    <label for="login-email">Email</label>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="login-password" required placeholder=" ">
+                    <label for="login-password">Password</label>
+                </div>
+                <button type="submit" class="btn">Sign In</button>
+                <div class="form-footer">
+                    <span>New to Netflix? <a href="#" id="show-register">Sign up now.</a></span>
+                </div>
+            </form>
+        </div>
+
+        <!-- Registration Form -->
+        <div class="form-container hidden" id="register-form">
+            <h2>Sign Up</h2>
+            <form id="register-form-element">
+                <div class="input-group">
+                    <input type="text" id="reg-name" required placeholder=" ">
+                    <label for="reg-name">User Name</label>
+                </div>
+                <div class="input-group">
+                    <input type="email" id="reg-email" required placeholder=" ">
+                    <label for="reg-email">Email</label>
+                </div>
+                <div class="input-group">
+                    <input type="tel" id="reg-phone" required placeholder=" ">
+                    <label for="reg-phone">Phone Number</label>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="reg-password" required placeholder=" ">
+                    <label for="reg-password">Password</label>
+                </div>
+                <button type="submit" class="btn">Sign Up</button>
+                <div class="form-footer">
+                    <span>Already have an account? <a href="#" id="show-login">Sign in now.</a></span>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const loginForm = document.getElementById('login-form');
+        const registerForm = document.getElementById('register-form');
+        const showRegister = document.getElementById('show-register');
+        const showLogin = document.getElementById('show-login');
+
+        showRegister.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginForm.classList.add('hidden');
+            registerForm.classList.remove('hidden');
+        });
+
+        showLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            registerForm.classList.add('hidden');
+            loginForm.classList.remove('hidden');
+        });
+
+        // Helper to show messages
+        const showMessage = (msg, isError = false) => {
+            alert(msg); // Simple alert for now, could be improved to morphic toast
+        };
+
+        document.getElementById('register-form-element').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const data = {
+                username: document.getElementById('reg-name').value,
+                email: document.getElementById('reg-email').value,
+                phone: document.getElementById('reg-phone').value,
+                password: document.getElementById('reg-password').value
+            };
+
+            try {
+                const res = await fetch('/api/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                const result = await res.json();
+                if (res.ok) {
+                    showMessage('Registration successful! Please sign in.');
+                    showLogin.click();
+                } else {
+                    const errorMsg = result.error || 'Registration failed';
+                    console.error('Registration failed:', result);
+                    showMessage(errorMsg, true);
+                }
+            } catch (err) {
+                showMessage('Connection error', true);
+            }
+        });
+
+        document.getElementById('login-form-element').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const data = {
+                email: document.getElementById('login-email').value,
+                password: document.getElementById('login-password').value
+            };
+
+            try {
+                const res = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                const result = await res.json();
+                if (res.ok) {
+                    localStorage.setItem('netflix_user', JSON.stringify(result.user));
+                    window.location.href = 'index.html';
+                } else {
+                    showMessage(result.error || 'Login failed', true);
+                }
+            } catch (err) {
+                showMessage('Connection error', true);
+            }
+        });
+
+        // Check if already logged in
+        if (localStorage.getItem('netflix_user')) {
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+
+</html>
