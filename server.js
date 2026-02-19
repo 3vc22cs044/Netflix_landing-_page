@@ -14,7 +14,9 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, '/')));
 
 // Database Connection
-const databaseUrl = process.env.DATABASE_URL.split('?')[0];
+const rawDb = process.env.DATABASE_URL;
+if (!rawDb) throw new Error('DATABASE_URL environment variable is not set!');
+const databaseUrl = rawDb.split('?')[0];
 const pool = new Pool({
     connectionString: databaseUrl,
     ssl: {
@@ -93,8 +95,6 @@ app.post('/api/login', async (req, res) => {
     }
 });
 
-app.listen(port, () => {
-    console.log(`Server running on http://localhost:${port}`);
-    // Keep the process alive
-    setInterval(() => { }, 1000 * 60 * 60);
-});
+// Export for Vercel serverless (no app.listen on Vercel!)
+// For local dev: run with `node -e "require('./server').listen(5000)"`
+module.exports = app;
