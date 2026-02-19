@@ -14,9 +14,13 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, '/')));
 
 // Database Connection
-const rawDb = process.env.DATABASE_URL;
-if (!rawDb) throw new Error('DATABASE_URL environment variable is not set!');
-const databaseUrl = rawDb.split('?')[0];
+const databaseUrl = process.env.DATABASE_URL;
+if (!databaseUrl) throw new Error('DATABASE_URL environment variable is not set!');
+
+// Fix for Aiven/Heroku self-signed certificate issues
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
+// Create pool with SSL settings
 const pool = new Pool({
     connectionString: databaseUrl,
     ssl: {

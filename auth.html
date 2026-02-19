@@ -111,7 +111,8 @@
                     showMessage(errorMsg, true);
                 }
             } catch (err) {
-                showMessage('Connection error', true);
+                console.error('Registration Error:', err);
+                showMessage('Registration failed: ' + err.message, true);
             }
         });
 
@@ -136,7 +137,8 @@
                     showMessage(result.error || 'Login failed', true);
                 }
             } catch (err) {
-                showMessage('Connection error', true);
+                console.error('Login Error:', err);
+                showMessage('Login failed: ' + err.message, true);
             }
         });
 
